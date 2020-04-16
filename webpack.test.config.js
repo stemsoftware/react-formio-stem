@@ -1,5 +1,5 @@
 module.exports = {
-  // mode: 'development',
+  //mode: 'development',
   module: {
     rules: [
       {
@@ -8,9 +8,11 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           presets: [
-            ['es2015', {modules: false}],
-            'react',
-            'stage-2'
+            ['@babel/env', {modules: false}],
+            '@babel/preset-react',
+            {
+              'plugins': ['@babel/plugin-proposal-class-properties']
+            }
           ]
         }
       }

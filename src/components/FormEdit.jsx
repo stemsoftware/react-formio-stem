@@ -10,8 +10,8 @@ export default class FormEdit extends Component {
     form: PropTypes.object.isRequired,
     options: PropTypes.object,
     builder: PropTypes.any,
-    onSave: PropTypes.func
-  }
+    onSave: PropTypes.func,
+  };
 
   constructor(props) {
     super(props);
@@ -22,18 +22,22 @@ export default class FormEdit extends Component {
       form: form
         ? _cloneDeep(form)
         : {
-          title: '',
-          name: '',
-          path: '',
-          display: 'form',
-          type: 'form',
-          components: [],
-        },
+            displayLabel: '',
+            name: '',
+            path: '',
+            display: 'form',
+            type: 'form',
+            components: [],
+          },
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.form && (prevState.form._id !== nextProps.form._id || prevState.form.modified !== nextProps.form.modified)) {
+    if (
+      nextProps.form &&
+      (prevState.form._id !== nextProps.form._id ||
+        prevState.form.modified !== nextProps.form.modified)
+    ) {
       return {
         form: _cloneDeep(nextProps.form),
       };
@@ -57,7 +61,7 @@ export default class FormEdit extends Component {
       _set(form, path, value);
 
       // If setting title, autogenerate name and path as well.
-      if (path === 'title' && !form._id) {
+      if (path === 'displayLabel' && !form._id) {
         form.name = _camelCase(value);
         form.path = _camelCase(value).toLowerCase();
       }
@@ -71,14 +75,14 @@ export default class FormEdit extends Component {
 
   formChange = (form) => {
     this.setState({
-      form: {...this.state.form, ...form}
+      form: {...this.state.form, ...form},
     });
   };
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     // Only update if key form info has changed. The builder handles form component changes itself.
     return (
-      this.state.form.title !== nextState.form.title ||
+      this.state.form.displayLabel !== nextState.form.displayLabel ||
       this.state.form.name !== nextState.form.name ||
       this.state.form.path !== nextState.form.path ||
       this.state.form.display !== nextState.form.display ||
@@ -95,85 +99,100 @@ export default class FormEdit extends Component {
         <div className="row">
           <div className="col-lg-2 col-md-4 col-sm-4">
             <div id="form-group-title" className="form-group">
-              <label htmlFor="title" className="control-label field-required">Title</label>
+              <label
+                htmlFor="displayLabel"
+                className="control-label field-required"
+              >
+                Display Label
+              </label>
               <input
                 type="text"
-                className="form-control" id="title"
-                placeholder="Enter the form title"
-                value={form.title || ''}
-                onChange={event => this.handleChange('title', event)}
+                className="form-control"
+                id="displayLabel"
+                placeholder="Enter display label"
+                value={form.displayLabel || ''}
+                onChange={(event) => this.handleChange('displayLabel', event)}
               />
             </div>
           </div>
           <div className="col-lg-2 col-md-4 col-sm-4">
             <div id="form-group-name" className="form-group">
-              <label htmlFor="name" className="control-label field-required">Name</label>
+              <label htmlFor="name" className="control-label field-required">
+                Name
+              </label>
               <input
                 type="text"
                 className="form-control"
                 id="name"
                 placeholder="Enter the form machine name"
                 value={form.name || ''}
-                onChange={event => this.handleChange('name', event)}
+                onChange={(event) => this.handleChange('name', event)}
               />
             </div>
           </div>
           <div className="col-lg-2 col-md-3 col-sm-3">
             <div id="form-group-display" className="form-group">
-              <label htmlFor="name" className="control-label">Display as</label>
+              <label htmlFor="name" className="control-label">
+                Display as
+              </label>
               <div className="input-group">
                 <select
                   className="form-control"
                   name="form-display"
                   id="form-display"
                   value={form.display || ''}
-                  onChange={event => this.handleChange('display', event)}
+                  onChange={(event) => this.handleChange('display', event)}
                 >
-                  <option label="Form" value="form">Form</option>
-                  <option label="Wizard" value="wizard">Wizard</option>
-                  <option label="PDF" value="pdf">PDF</option>
+                  <option label="Form" value="form">
+                    Form
+                  </option>
+                  <option label="Wizard" value="wizard">
+                    Wizard
+                  </option>
+                  <option label="PDF" value="pdf">
+                    PDF
+                  </option>
                 </select>
               </div>
             </div>
           </div>
           <div className="col-lg-2 col-md-3 col-sm-3">
             <div id="form-group-type" className="form-group">
-              <label htmlFor="form-type" className="control-label">Type</label>
+              <label htmlFor="form-type" className="control-label">
+                Type
+              </label>
               <div className="input-group">
                 <select
                   className="form-control"
                   name="form-type"
                   id="form-type"
                   value={this.state.form.type}
-                  onChange={event => this.handleChange('type', event)}
+                  onChange={(event) => this.handleChange('type', event)}
                 >
-                  <option label="Form" value="form">Form</option>
-                  <option label="Resource" value="resource">Resource</option>
+                  <option label="Form" value="form">
+                    Form
+                  </option>
+                  <option label="Resource" value="resource">
+                    Resource
+                  </option>
                 </select>
               </div>
             </div>
           </div>
-          <div className="col-lg-2 col-md-4 col-sm-4">
-            <div id="form-group-path" className="form-group">
-              <label htmlFor="path" className="control-label field-required">Path</label>
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="path"
-                  placeholder="example"
-                  style={{'textTransform': 'lowercase', width:'120px'}}
-                  value={form.path || ''}
-                  onChange={event => this.handleChange('path', event)}
-                />
-              </div>
-            </div>
-          </div>
-          <div id="save-buttons" className="col-lg-2 col-md-5 col-sm-5 save-buttons pull-right">
-            <div className="form-group pull-right">
+          <div
+            id="save-buttons"
+            className="col-lg-4 col-md-5 col-sm-5 save-buttons pull-right"
+          >
+            <div className="form-group pull-right ml-3">
               <span className="btn btn-primary" onClick={() => this.saveForm()}>
                 {saveText}
               </span>
+            </div>
+            <div className="form-group pull-right">
+              <i
+                className="btn btn-secondary fas fa-ban py-3"
+                onClick={() => this.props.handleReset()}
+              ></i>
             </div>
           </div>
         </div>
