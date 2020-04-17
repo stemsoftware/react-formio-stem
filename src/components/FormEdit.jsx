@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import FormBuilder from './FormBuilder';
-import _set from 'lodash/set';
-import _cloneDeep from 'lodash/cloneDeep';
-import _camelCase from 'lodash/camelCase';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import FormBuilder from "./FormBuilder";
+import _set from "lodash/set";
+import _cloneDeep from "lodash/cloneDeep";
+import _camelCase from "lodash/camelCase";
 
 export default class FormEdit extends Component {
   static propTypes = {
@@ -16,17 +16,17 @@ export default class FormEdit extends Component {
   constructor(props) {
     super(props);
 
-    const {form} = props;
+    const { form } = props;
 
     this.state = {
       form: form
         ? _cloneDeep(form)
         : {
-            displayLabel: '',
-            name: '',
-            path: '',
-            display: 'form',
-            type: 'form',
+            displayLabel: "",
+            name: "",
+            path: "",
+            display: "form",
+            type: "form",
             components: [],
           },
     };
@@ -47,21 +47,27 @@ export default class FormEdit extends Component {
   }
 
   saveForm() {
-    if (this.props.saveForm && typeof this.props.saveForm === 'function') {
+    if (this.props.saveForm && typeof this.props.saveForm === "function") {
       this.props.saveForm(this.state.form);
     }
   }
 
+  deleteForm() {
+    if (this.props.newForm) {
+      this.props.deleteForm(this.state.form);
+    }
+  }
+
   handleChange(path, event) {
-    const {target} = event;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { target } = event;
+    const value = target.type === "checkbox" ? target.checked : target.value;
 
     this.setState((prev) => {
       const form = _cloneDeep(prev.form);
       _set(form, path, value);
 
       // If setting title, autogenerate name and path as well.
-      if (path === 'displayLabel' && !form._id) {
+      if (path === "displayLabel" && !form._id) {
         form.name = _camelCase(value);
         form.path = _camelCase(value).toLowerCase();
       }
@@ -75,7 +81,7 @@ export default class FormEdit extends Component {
 
   formChange = (form) => {
     this.setState({
-      form: {...this.state.form, ...form},
+      form: { ...this.state.form, ...form },
     });
   };
 
@@ -91,8 +97,8 @@ export default class FormEdit extends Component {
   }
 
   render() {
-    const {form} = this.state;
-    const {saveText} = this.props;
+    const { form } = this.state;
+    const { saveText } = this.props;
 
     return (
       <div>
@@ -110,8 +116,8 @@ export default class FormEdit extends Component {
                 className="form-control"
                 id="displayLabel"
                 placeholder="Enter display label"
-                value={form.displayLabel || ''}
-                onChange={(event) => this.handleChange('displayLabel', event)}
+                value={form.displayLabel || ""}
+                onChange={(event) => this.handleChange("displayLabel", event)}
               />
             </div>
           </div>
@@ -125,8 +131,8 @@ export default class FormEdit extends Component {
                 className="form-control"
                 id="name"
                 placeholder="Enter the form machine name"
-                value={form.name || ''}
-                onChange={(event) => this.handleChange('name', event)}
+                value={form.name || ""}
+                onChange={(event) => this.handleChange("name", event)}
               />
             </div>
           </div>
@@ -140,8 +146,8 @@ export default class FormEdit extends Component {
                   className="form-control"
                   name="form-display"
                   id="form-display"
-                  value={form.display || ''}
-                  onChange={(event) => this.handleChange('display', event)}
+                  value={form.display || ""}
+                  onChange={(event) => this.handleChange("display", event)}
                 >
                   <option label="Form" value="form">
                     Form
@@ -167,7 +173,7 @@ export default class FormEdit extends Component {
                   name="form-type"
                   id="form-type"
                   value={this.state.form.type}
-                  onChange={(event) => this.handleChange('type', event)}
+                  onChange={(event) => this.handleChange("type", event)}
                 >
                   <option label="Form" value="form">
                     Form
@@ -194,6 +200,14 @@ export default class FormEdit extends Component {
                 onClick={() => this.props.handleReset()}
               ></i>
             </div>
+            {this.props.newForm === false ? (
+              <div className="form-group pull-right">
+                <i
+                  className="btn btn-danger fas fa-trash py-3"
+                  onClick={() => this.deleteForm()}
+                ></i>
+              </div>
+            ) : null}
           </div>
         </div>
         <FormBuilder
