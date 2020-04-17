@@ -4,6 +4,7 @@ import FormBuilder from "./FormBuilder";
 import _set from "lodash/set";
 import _cloneDeep from "lodash/cloneDeep";
 import _camelCase from "lodash/camelCase";
+import _omit from "lodash/omit";
 
 export default class FormEdit extends Component {
   static propTypes = {
@@ -71,7 +72,7 @@ export default class FormEdit extends Component {
         form.path = _camelCase(value).toLowerCase();
       }
 
-      var newForm = _.omit(form, ["path"]);
+      var newForm = _omit(form, ["path"]);
 
       return {
         ...prev,
