@@ -76,7 +76,7 @@ export default class FormEdit extends Component {
 
       return {
         ...prev,
-        newForm,
+        form: newForm,
       };
     });
   }
