@@ -53,7 +53,7 @@ export default class FormEdit extends Component {
   }
 
   deleteForm() {
-    if (this.props.newForm) {
+    if (!this.props.newForm) {
       this.props.deleteForm(this.state.form);
     }
   }
@@ -189,25 +189,25 @@ export default class FormEdit extends Component {
             id="save-buttons"
             className="col-lg-4 col-md-5 col-sm-5 save-buttons pull-right"
           >
-            <div className="form-group pull-right ml-3">
-              <span className="btn btn-primary" onClick={() => this.saveForm()}>
-                {saveText}
-              </span>
-            </div>
-            <div className="form-group pull-right">
-              <i
-                className="btn btn-secondary fas fa-ban py-3"
-                onClick={() => this.props.handleReset()}
-              ></i>
-            </div>
             {this.props.newForm === false ? (
-              <div className="form-group pull-right">
+              <div title="Delete form" className="form-group pull-right">
                 <i
                   className="btn btn-danger fas fa-trash py-3"
                   onClick={() => this.deleteForm()}
                 ></i>
               </div>
             ) : null}
+            <div title="Cancel changes" className="form-group pull-right">
+              <i
+                className="btn btn-secondary fas fa-ban py-3"
+                onClick={() => this.props.handleReset()}
+              ></i>
+            </div>
+            <div title="Save Form" className="form-group pull-right ml-3">
+              <span className="btn btn-primary" onClick={() => this.saveForm()}>
+                {saveText}
+              </span>
+            </div>
           </div>
         </div>
         <FormBuilder
