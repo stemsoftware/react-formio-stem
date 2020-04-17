@@ -24,7 +24,6 @@ export default class FormEdit extends Component {
         : {
             displayLabel: "",
             name: "",
-            path: "",
             display: "form",
             type: "form",
             components: [],
@@ -72,9 +71,11 @@ export default class FormEdit extends Component {
         form.path = _camelCase(value).toLowerCase();
       }
 
+      var newForm = _.omit(form, ["path"]);
+
       return {
         ...prev,
-        form,
+        newForm,
       };
     });
   }
