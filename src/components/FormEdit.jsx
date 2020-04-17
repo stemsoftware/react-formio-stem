@@ -187,23 +187,23 @@ export default class FormEdit extends Component {
           </div>
           <div
             id="save-buttons"
-            className="col-lg-4 col-md-5 col-sm-5 save-buttons pull-right"
+            className="col-lg-4 col-md-5 col-sm-5 save-buttons pull-right d-flex justify-content-end align-items-end"
           >
             {this.props.newForm === false ? (
-              <div title="Delete form" className="form-group pull-right">
+              <div title="Delete form" className="form-group ml-3">
                 <i
                   className="btn btn-danger fas fa-trash py-3"
                   onClick={() => this.deleteForm()}
                 ></i>
               </div>
             ) : null}
-            <div title="Cancel changes" className="form-group pull-right">
+            <div title="Cancel changes" className="form-group ml-3">
               <i
                 className="btn btn-secondary fas fa-ban py-3"
                 onClick={() => this.props.handleReset()}
               ></i>
             </div>
-            <div title="Save Form" className="form-group pull-right ml-3">
+            <div title="Save Form" className="form-group">
               <span className="btn btn-primary" onClick={() => this.saveForm()}>
                 {saveText}
               </span>
