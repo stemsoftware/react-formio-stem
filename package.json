@@ -1,6 +1,6 @@
 {
   "name": "react-formio-stem",
-  "version": "4.3.2",
+  "version": "4.3.3",
   "description": "React renderer for form.io forms for STEM.",
   "main": "lib/index.js",
   "scripts": {
