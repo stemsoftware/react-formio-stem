@@ -8,8 +8,8 @@ export default class ReactComponent extends Field {
    * @param options - Any options passed into the renderer.
    * @param data - The submission data where this component's data exists.
    */
-  constructor(component, options, data) {
-    super(component, options, data);
+  constructor(Component, options, data) {
+    super(Component, options, data);
   }
 
   /**
