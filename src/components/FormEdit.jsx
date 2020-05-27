@@ -23,11 +23,11 @@ export default class FormEdit extends Component {
       form: form
         ? _cloneDeep(form)
         : {
-            DisplayLabel: "",
-            FormName: "",
-            Display: "form",
-            Type: "form",
-            Components: [],
+            displayLabel: "",
+            name: "",
+            display: "form",
+            type: "form",
+            components: [],
           },
     };
   }
@@ -67,7 +67,7 @@ export default class FormEdit extends Component {
       _set(form, path, value);
 
       // If setting title, autogenerate name and path as well.
-      if (path === "DisplayLabel" && !form._id) {
+      if (path === "displayLabel" && !form._id) {
         form.name = _camelCase(value);
         form.path = _camelCase(value).toLowerCase();
       }
@@ -90,11 +90,11 @@ export default class FormEdit extends Component {
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     // Only update if key form info has changed. The builder handles form component changes itself.
     return (
-      this.state.form.DisplayLabel !== nextState.form.DisplayLabel ||
-      this.state.form.FormName !== nextState.form.FormName ||
-      this.state.form.Path !== nextState.form.Path ||
-      this.state.form.Display !== nextState.form.Display ||
-      this.state.form.Type !== nextState.form.Type
+      this.state.form.displayLabel !== nextState.form.displayLabel ||
+      this.state.form.name !== nextState.form.name ||
+      this.state.form.path !== nextState.form.path ||
+      this.state.form.display !== nextState.form.display ||
+      this.state.form.type !== nextState.form.type
     );
   }
 
@@ -108,7 +108,7 @@ export default class FormEdit extends Component {
           <div className="col-lg-2 col-md-4 col-sm-4">
             <div id="form-group-title" className="form-group">
               <label
-                htmlFor="DisplayLabel"
+                htmlFor="displayLabel"
                 className="control-label field-required"
               >
                 Display Label
@@ -116,10 +116,10 @@ export default class FormEdit extends Component {
               <input
                 type="text"
                 className="form-control"
-                id="DisplayLabel"
+                id="displayLabel"
                 placeholder="Enter display label"
-                value={form.DisplayLabel || ""}
-                onChange={(event) => this.handleChange("DisplayLabel", event)}
+                value={form.displayLabel || ""}
+                onChange={(event) => this.handleChange("displayLabel", event)}
               />
             </div>
           </div>
@@ -148,7 +148,7 @@ export default class FormEdit extends Component {
                   className="form-control"
                   name="form-display"
                   id="form-display"
-                  value={form.Display || ""}
+                  value={form.display || ""}
                   onChange={(event) => this.handleChange("display", event)}
                 >
                   <option label="Form" value="form">
@@ -174,7 +174,7 @@ export default class FormEdit extends Component {
                   className="form-control"
                   name="form-type"
                   id="form-type"
-                  value={this.state.form.Type}
+                  value={this.state.form.type}
                   onChange={(event) => this.handleChange("type", event)}
                 >
                   <option label="Form" value="form">
