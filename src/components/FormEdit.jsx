@@ -23,11 +23,11 @@ export default class FormEdit extends Component {
       form: form
         ? _cloneDeep(form)
         : {
-            displayLabel: "",
-            name: "",
-            display: "form",
-            type: "form",
-            components: [],
+            DisplayLabel: "",
+            FormName: "",
+            Display: "form",
+            Type: "form",
+            Components: [],
           },
     };
   }
