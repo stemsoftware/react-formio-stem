@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 4.3.6
+### Changed
+- Added Category field to formbuilder header
+
 ## 4.3.5
 ### Changed
 - Reverted version 4.3.3 and 4.3.4 changes

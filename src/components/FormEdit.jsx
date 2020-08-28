@@ -23,6 +23,7 @@ export default class FormEdit extends Component {
       form: form
         ? _cloneDeep(form)
         : {
+            category: "",
             displayLabel: "",
             name: "",
             display: "form",
@@ -90,6 +91,7 @@ export default class FormEdit extends Component {
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     // Only update if key form info has changed. The builder handles form component changes itself.
     return (
+      this.state.form.category !== nextState.form.category ||
       this.state.form.displayLabel !== nextState.form.displayLabel ||
       this.state.form.name !== nextState.form.name ||
       this.state.form.path !== nextState.form.path ||
@@ -105,6 +107,24 @@ export default class FormEdit extends Component {
     return (
       <div>
         <div className="row">
+        <div className="col-lg-2 col-md-4 col-sm-4">
+            <div id="form-group-title" className="form-group">
+              <label
+                htmlFor="category"
+                className="control-label field-required"
+              >
+                Category
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="category"
+                placeholder="Enter category"
+                value={form.category || ""}
+                onChange={(event) => this.handleChange("category", event)}
+              />
+            </div>
+          </div>
           <div className="col-lg-2 col-md-4 col-sm-4">
             <div id="form-group-title" className="form-group">
               <label
@@ -132,7 +152,7 @@ export default class FormEdit extends Component {
                 type="text"
                 className="form-control"
                 id="name"
-                placeholder="Enter the form machine name"
+                placeholder="Enter the form name"
                 value={form.name || ""}
                 onChange={(event) => this.handleChange("name", event)}
               />
